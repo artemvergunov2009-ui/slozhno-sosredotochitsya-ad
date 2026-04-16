@@ -1,16 +1,27 @@
-/*
-  Специально для светлой темы при наличии класса.
-  Здесь окажутся стили, которые нужно переопределить принудительно,
-  переключая тему
-*/
-
+/* Принудительная светлая тема по классу от кнопки */
 :root.theme-light {
-  /* сохраните этот селектор в приведённом виде.
-    Так стили написанные ниже будут иметь больший вес,
-    чем стили в медиазапросе предпочтений пользователя
-  */
+  --bg-color: #ffffff; /* Замени на светлые цвета из Figma */
+  --text-color: #000000;
+  --accent-color: #ff8dcb;
+  --decor-bg-color: #ff8dcb;
+  --bg-image: url('../images/bg-light.jpg');
 }
 
-.theme-light .page {
-  /* Вам также нужно будет написать ряд подобных селекторов */
+.theme-light .header__rec {
+  display: none; /* В светлой теме REC скрыт */
+}
+
+/* Светлая тема по системным настройкам пользователя */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: #ffffff; 
+    --text-color: #000000;
+    --accent-color: #ff8dcb;
+    --decor-bg-color: #ff8dcb;
+    --bg-image: url('../images/bg-light.jpg');
+  }
+
+  .header__rec {
+    display: none;
+  }
 }
