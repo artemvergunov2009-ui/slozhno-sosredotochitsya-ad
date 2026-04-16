@@ -4,37 +4,88 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
     <title>Сложно сосредоточиться</title>
-    <script src="./scripts/script.js"></script>
+    
+    <link rel="icon" href="./images/favicon.ico" sizes="any" />
+    
+    <link rel="stylesheet" href="./styles/globals.css" />
+    <link rel="stylesheet" href="./styles/variables.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/dark.css" />
+    <link rel="stylesheet" href="./styles/light.css" />
+    
+    <script src="./scripts/script.js" defer></script>
   </head>
   <body class="page">
     <header class="header decorated-zone">
+      <div class="header__rec" aria-hidden="true">REC</div>
+      
       <nav class="header__theme-menu">
         <ul class="header__theme-menu-list">
           <li class="header__theme-menu-item">
-            <button
-              class="header__theme-menu-button header__theme-menu-button_type_light"
-            >
+            <button class="header__theme-menu-button header__theme-menu-button_type_light">
               День
             </button>
           </li>
           <li class="header__theme-menu-item">
-            <button
-              class="header__theme-menu-button header__theme-menu-button_active header__theme-menu-button_type_auto"
-              disabled
-            >
+            <button class="header__theme-menu-button header__theme-menu-button_active header__theme-menu-button_type_auto" disabled>
               Авто
             </button>
           </li>
           <li class="header__theme-menu-item">
-            <button
-              class="header__theme-menu-button header__theme-menu-button_type_dark"
-            >
+            <button class="header__theme-menu-button header__theme-menu-button_type_dark">
               Неон
             </button>
           </li>
         </ul>
       </nav>
+
+      <div class="header__content">
+        <h1 class="header__title">Сложно сосредоточиться</h1>
+        <p class="header__subtitle title-decor">
+          Здесь будет текст подзаголовка из макета. Скопируй его из Figma.
+        </p>
+      </div>
     </header>
+
+    <main class="main-content">
+      <section class="section">
+        <h2 class="section__title title-decor">Заголовок секции 1</h2>
+        <div class="section__content">
+          <article class="article">
+            <h3 class="article__title">Подзаголовок статьи</h3>
+            <p class="article__text">
+              Текст статьи. Не забудь добавить <a href="#" class="link">ссылки</a> там, где они есть в макете.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title title-decor">Заголовок секции 2</h2>
+        <div class="section__content">
+          <article class="article">
+            <h3 class="article__title">Подзаголовок статьи</h3>
+            <p class="article__text">Текст из макета.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="gallery">
+        <h2 class="gallery__title title-decor">Галерея</h2>
+        <div class="gallery__grid">
+          <img src="./images/image1.jpg" alt="Описание картинки 1" class="gallery__image" loading="lazy" />
+          <img src="./images/image2.jpg" alt="Описание картинки 2" class="gallery__image" loading="lazy" />
+          <img src="./images/image3.jpg" alt="Описание картинки 3" class="gallery__image" loading="lazy" />
+          <img src="./images/image4.jpg" alt="Описание картинки 4" class="gallery__image" loading="lazy" />
+          <img src="./images/image5.jpg" alt="Описание картинки 5" class="gallery__image" loading="lazy" />
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer decorated-zone">
+      <h2 class="footer__title">Сложно сосредоточиться</h2>
+    </footer>
   </body>
 </html>
