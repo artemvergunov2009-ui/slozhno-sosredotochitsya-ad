@@ -42,7 +42,7 @@
 
 1.  Склонируйте репозиторий:
     ```bash
-    git clone https://github.com/твой-аккаунт/slozhno-sosredotochitsya-ad.git
+    git clone https://github.com/artemvergunov2009-ui/slozhno-sosredotochitsya-ad.git
     ```
 2.  Перейдите в папку проекта:
     ```bash
