@@ -1,0 +1,14 @@
+{
+  "name": "Nexus Game AI Instructor",
+  "description": "Powerful AI-driven gaming coach with Steam stats analysis, personalized training plans, and pro-player gap analysis.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "AI-driven coaching",
+    "Steam Stats Integration",
+    "Real-time Chat",
+    "Multimedia Analysis"
+  ]
+}
