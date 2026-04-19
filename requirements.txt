@@ -1,0 +1,26 @@
+# ПРИМЕЧАНИЕ: Это проект на Node.js. Основной файл зависимостей — package.json.
+# Для установки используйте команду: npm install
+
+# Основные фреймворки и сборка
+react==19.0.0
+react-dom==19.0.0
+vite==6.2.0
+typescript==5.8.2
+
+# API и Сервисы
+@google/genai==1.29.0
+@supabase/supabase-js==2.48.0
+express==4.21.2
+dotenv==17.2.3
+
+# Интерфейс и Стили
+tailwindcss==4.1.14
+lucide-react==0.546.0
+framer-motion==12.38.0
+recharts==3.8.1
+react-markdown==10.1.0
+clsx==2.1.1
+tailwind-merge==3.5.0
+
+# Инструменты разработки
+tsx==4.21.0
