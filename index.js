@@ -7,14 +7,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const PROXIES = [
+    ["173.211.30.150", "6421", "vjbepkud", "fiwibzc0q2sg"],
     ["104.238.131.147", "6312", "vjbepkud", "fiwibzc0q2sg"],
-    ["45.151.10.155", "6251", "vjbepkud", "fiwibzc0q2sg"],
-    ["198.23.239.134", "6540", "vjbepkud", "fiwibzc0q2sg"],
-    ["173.44.37.194", "6352", "vjbepkud", "fiwibzc0q2sg"],
+    ["161.123.152.115", "6360", "vjbepkud", "fiwibzc0q2sg"],
     ["167.160.180.203", "6754", "vjbepkud", "fiwibzc0q2sg"],
     ["154.36.110.199", "6853", "vjbepkud", "fiwibzc0q2sg"],
-    ["45.127.248.127", "5128", "vjbepkud", "fiwibzc0q2sg"],
-    ["64.137.73.55", "5174", "vjbepkud", "fiwibzc0q2sg"]
+    ["173.44.37.194", "6352", "vjbepkud", "fiwibzc0q2sg"]
 ];
 const TARGET_URL = 'https://generativelanguage.googleapis.com';
 
