@@ -46,11 +46,12 @@ const proxyPool = PROXIES.map((proxyData) => {
             }
         },
         onError: (err, req, res) => {
-            console.error(`[Proxy Error for ${ip}]:`, err.message);
-            res.status(502).json({
-                error: 'Proxy connection failed',
-                message: 'Этот прокси временно недоступен или слишком медленный.'
-            });
+            console.error(`[CRITICAL ERROR] Proxy: ${ip} | Error: ${err.message}`);
+            if (err.code === 'ETIMEDOUT') {
+                res.status(504).json({ error: "Proxy timed out. Try again." });
+            } else {
+                res.status(502).json({ error: "Proxy connection failed", details: err.message });
+            }
         },
         logLevel: 'debug'
     });
