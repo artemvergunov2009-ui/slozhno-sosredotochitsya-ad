@@ -6,20 +6,16 @@ const cors = require('cors'); // Используем пакет cors для н�
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Список ваших прокси (IP, PORT, USER, PASS)
 const PROXIES = [
-    ["31.59.20.176", "6754", "vjbepkud", "fiwibzc0q2sg"],
-    ["23.95.150.145", "6114", "vjbepkud", "fiwibzc0q2sg"],
+    ["104.238.131.147", "6312", "vjbepkud", "fiwibzc0q2sg"],
+    ["45.151.10.155", "6251", "vjbepkud", "fiwibzc0q2sg"],
     ["198.23.239.134", "6540", "vjbepkud", "fiwibzc0q2sg"],
-    ["45.38.107.97", "6014", "vjbepkud", "fiwibzc0q2sg"],
-    ["107.172.163.27", "6543", "vjbepkud", "fiwibzc0q2sg"],
-    ["198.105.121.200", "6462", "vjbepkud", "fiwibzc0q2sg"],
-    ["216.10.27.159", "6837", "vjbepkud", "fiwibzc0q2sg"],
-    ["142.111.67.146", "5611", "vjbepkud", "fiwibzc0q2sg"],
-    ["191.96.254.138", "6185", "vjbepkud", "fiwibzc0q2sg"],
-    ["31.58.9.4", "6077", "vjbepkud", "fiwibzc0q2sg"]
+    ["173.44.37.194", "6352", "vjbepkud", "fiwibzc0q2sg"],
+    ["167.160.180.203", "6754", "vjbepkud", "fiwibzc0q2sg"],
+    ["154.36.110.199", "6853", "vjbepkud", "fiwibzc0q2sg"],
+    ["45.127.248.127", "5128", "vjbepkud", "fiwibzc0q2sg"],
+    ["64.137.73.55", "5174", "vjbepkud", "fiwibzc0q2sg"]
 ];
-
 const TARGET_URL = 'https://generativelanguage.googleapis.com';
 
 // Включаем CORS для всех маршрутов и методов
