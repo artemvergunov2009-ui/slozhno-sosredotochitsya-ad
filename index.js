@@ -5,9 +5,6 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Целевой URL Google Gemini
-const TARGET_URL = 'https://generativelanguage.googleapis.com';
-
 // Включаем CORS, чтобы запросы проходили из браузера или бота
 app.use(cors());
 
