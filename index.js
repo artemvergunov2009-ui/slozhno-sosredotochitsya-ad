@@ -1,6 +1,7 @@
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const { HttpsProxyAgent } = require('https-proxy-agent');
+const cors = require('cors'); // Используем пакет cors для надежности
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,39 +20,43 @@ const PROXIES = [
     ["31.58.9.4", "6077", "vjbepkud", "fiwibzc0q2sg"]
 ];
 
-// Целевой URL для Gemini API
 const TARGET_URL = 'https://generativelanguage.googleapis.com';
 
-// Выбираем случайный прокси из списка
-const getRandomProxyAgent = () => {
-    const [ip, port, user, pass] = PROXIES[Math.floor(Math.random() * PROXIES.length)];
+// Включаем CORS для всех маршрутов и методов
+app.use(cors());
+
+// 1. Заранее создаем массив готовых мидлваров для каждого прокси
+const proxyPool = PROXIES.map((proxyData, index) => {
+    const [ip, port, user, pass] = proxyData;
     const proxyUri = `http://${user}:${pass}@${ip}:${port}`;
-    return new HttpsProxyAgent(proxyUri);
-};
+    const agent = new HttpsProxyAgent(proxyUri);
 
-app.use('/', createProxyMiddleware({
-    target: TARGET_URL,
-    changeOrigin: true,
-    agent: getRandomProxyAgent(), // Используем прокси-агент для исходящего трафика
-    onProxyReq: (proxyReq, req, res) => {
-        if (req.headers['x-goog-api-key']) {
-            proxyReq.setHeader('x-goog-api-key', req.headers['x-goog-api-key']);
-        }
-    },
-    onProxyRes: (proxyRes, req, res) => {
-        // Добавляем CORS заголовки, чтобы можно было обращаться из браузера
-        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-        proxyRes.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,PATCH,DELETE,OPTIONS';
-        proxyRes.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization';
-    },
-    logLevel: 'debug'
-}));
+    return createProxyMiddleware({
+        target: TARGET_URL,
+        changeOrigin: true,
+        agent: agent, // Привязываем конкретный агент к этому мидлвару
+        onProxyReq: (proxyReq, req, res) => {
+            if (req.headers['x-goog-api-key']) {
+                proxyReq.setHeader('x-goog-api-key', req.headers['x-goog-api-key']);
+            }
+        },
+        // Убираем ручной onProxyRes с CORS, так как теперь за это отвечает app.use(cors())
+        logLevel: 'silent' // 'debug' оставит много мусора в консоли, лучше выводить свой лог
+    });
+});
 
-// Обработка OPTIONS запросов для CORS
-app.options('*', (req, res) => {
-    res.sendStatus(200);
+// 2. Динамический роутер: выбирает случайный прокси для каждого отдельного запроса
+app.use('/', (req, res, next) => {
+    const randomIndex = Math.floor(Math.random() * proxyPool.length);
+    const selectedProxyIp = PROXIES[randomIndex][0];
+    
+    console.log(`[${new Date().toISOString()}] Routing request via proxy: ${selectedProxyIp}`);
+    
+    // Передаем запрос в выбранный мидлвар
+    proxyPool[randomIndex](req, res, next);
 });
 
 app.listen(PORT, () => {
     console.log(`AI Proxy server is running on port ${PORT} targeting ${TARGET_URL}`);
+    console.log(`Loaded ${proxyPool.length} proxies.`);
 });
