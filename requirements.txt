@@ -24,3 +24,7 @@ tailwind-merge==3.5.0
 
 # Инструменты разработки
 tsx==4.21.0
+express
+http-proxy-middleware
+https-proxy-agent
+cors
