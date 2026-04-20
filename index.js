@@ -26,17 +26,22 @@ const proxyPool = PROXIES.map((proxyData, index) => {
     const agent = new HttpsProxyAgent(proxyUri);
 
     return createProxyMiddleware({
-        target: TARGET_URL,
-        changeOrigin: true,
-        agent: agent, // Привязываем конкретный агент к этому мидлвару
-        onProxyReq: (proxyReq, req, res) => {
-            if (req.headers['x-goog-api-key']) {
-                proxyReq.setHeader('x-goog-api-key', req.headers['x-goog-api-key']);
-            }
-        },
-        // Убираем ручной onProxyRes с CORS, так как теперь за это отвечает app.use(cors())
-        logLevel: 'silent' // 'debug' оставит много мусора в консоли, лучше выводить свой лог
-    });
+    target: TARGET_URL,
+    changeOrigin: true,
+    agent: agent,
+    proxyTimeout: 10000, // 10 секунд на ответ от прокси
+    timeout: 10000,      // 10 секунд на соединение
+    onProxyReq: (proxyReq, req, res) => {
+        if (req.headers['x-goog-api-key']) {
+            proxyReq.setHeader('x-goog-api-key', req.headers['x-goog-api-key']);
+        }
+    },
+    onError: (err, req, res) => {
+        console.error('Proxy Error:', err.message);
+        res.status(502).send('Proxy temporary unavailable. Try again.');
+    },
+    logLevel: 'debug'
+});
 });
 
 // 2. Динамический роутер: выбирает случайный прокси для каждого отдельного запроса
