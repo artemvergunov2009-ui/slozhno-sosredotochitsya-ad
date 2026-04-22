@@ -1,67 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #a855f7;
-  --color-primary-dark: #7e22ce;
-  --color-accent: #d8b4fe;
-  --color-bg-dark: #0c051a;
-  --color-bg-sidebar: #140a26;
-  --color-bg-card: rgba(30, 15, 60, 0.4);
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Georgia", serif;
+  
+  --color-brand-primary: #4F46E5; /* Indigo 600 */
+  --color-brand-secondary: #EEF2FF; /* Indigo 50 */
+  --color-app-bg: #F8FAFC; /* Slate 50 */
 }
 
 @layer base {
   body {
-    @apply bg-bg-dark text-[#e9d5ff] antialiased;
+    @apply antialiased text-slate-800 bg-slate-50 font-sans;
   }
 }
 
 @layer components {
-  .glass-card {
-    @apply backdrop-blur-[12px] border border-purple-900/40 rounded-2xl shadow-2xl;
-    background: var(--color-bg-card);
+  .card-glass {
+    @apply bg-white/90 backdrop-blur-md border border-white/50 shadow-sm;
   }
-
-  .sidebar-item {
-    @apply flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 border border-transparent hover:bg-white/5 hover:border-purple-500/30 hover:text-white cursor-pointer;
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
-
-  .sidebar-item.active {
-    @apply bg-purple-900/40 text-white border-purple-500/50;
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-
-  .btn-primary {
-    @apply bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-xl transition-all shadow-[0_0_15px_rgba(168,85,247,0.3)];
-  }
-
-  /* Progress Bars */
-  .pro-gap-bar {
-    @apply h-[6px] w-full bg-white/10 rounded-full overflow-hidden relative;
-  }
-
-  .pro-gap-fill {
-    @apply h-full bg-primary rounded-full;
-    box-shadow: 0 0 8px #a855f7;
-  }
-
-  /* Success/Error status cards */
-  .card-success {
-    @apply bg-green-500/10 border border-green-500 p-4 rounded-xl;
-  }
-
-  .card-error {
-    @apply bg-red-500/10 border border-red-500 p-4 rounded-xl;
+  
+  .active-nav-item {
+    @apply border-l-4 border-indigo-600 bg-indigo-50 text-indigo-700 font-bold;
   }
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+.prose p {
+  margin-bottom: 1.25em;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-purple-900/40 rounded-full hover:bg-purple-900/60;
-}
