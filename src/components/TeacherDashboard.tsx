@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { Plus, ChevronRight, FileText, CheckCircle, Clock, Book, UserCircle, Edit3, X, Paperclip, Trash2 } from 'lucide-react';
+import { Plus, ChevronRight, FileText, CheckCircle, Clock, Book, UserCircle, Edit3, X, Paperclip, Trash2, Menu, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useAuth } from '../App';
 import { useLocation, Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ export default function TeacherDashboard({ forcedView }: { forcedView?: 'lessons
   const [submissions, setSubmissions] = useState<any[]>([]);
   const [editingLesson, setEditingLesson] = useState<any | null>(null);
   const [showAddLesson, setShowAddLesson] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
   const view = forcedView || (location.pathname === '/profile' ? 'profile' : location.pathname === '/grades' ? 'grading' : 'lessons');
@@ -106,19 +107,34 @@ export default function TeacherDashboard({ forcedView }: { forcedView?: 'lessons
         {view === 'lessons' ? (
           <motion.div key="lessons" className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div className="space-y-6">
-               <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">Мои предметы</h3>
-               <div className="grid gap-3">
-                 {subjects.map(s => (
-                   <button 
-                     key={s.id}
-                     onClick={() => fetchLessons(s)}
-                     className={`p-5 rounded-[1.5rem] text-left border transition-all shadow-sm ${selectedSubject?.id === s.id ? 'bg-indigo-600 text-white border-indigo-600 shadow-indigo-100' : 'bg-white border-slate-200 hover:border-indigo-400 hover:shadow-indigo-50'}`}
-                   >
-                     <p className="font-bold">{s.name}</p>
-                     <p className={`text-[10px] uppercase font-black tracking-widest mt-1 ${selectedSubject?.id === s.id ? 'text-indigo-200' : 'text-indigo-600'}`}>Активен</p>
-                   </button>
-                 ))}
-               </div>
+              <div className="flex items-center justify-between bg-white lg:bg-transparent p-4 lg:p-0 rounded-[1.5rem] lg:rounded-none border lg:border-none border-slate-200 lg:block">
+                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">Мои предметы</h3>
+                <button 
+                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                  className="lg:hidden flex items-center gap-2 bg-indigo-50 text-indigo-600 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest"
+                >
+                  {isSidebarOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                  {isSidebarOpen ? 'Скрыть' : 'Выбрать'}
+                </button>
+              </div>
+
+              <div className={`${isSidebarOpen ? 'block' : 'hidden'} lg:block transition-all duration-300`}>
+                <div className="grid gap-3 pt-2 lg:pt-0">
+                  {subjects.map(s => (
+                    <button 
+                      key={s.id}
+                      onClick={() => {
+                        fetchLessons(s);
+                        setIsSidebarOpen(false); // Закрываем на мобилках после выбора
+                      }}
+                      className={`p-5 rounded-[1.5rem] text-left border transition-all shadow-sm ${selectedSubject?.id === s.id ? 'bg-indigo-600 text-white border-indigo-600 shadow-indigo-100' : 'bg-white border-slate-200 hover:border-indigo-400 hover:shadow-indigo-50'}`}
+                    >
+                      <p className="font-bold">{s.name}</p>
+                      <p className={`text-[10px] uppercase font-black tracking-widest mt-1 ${selectedSubject?.id === s.id ? 'text-indigo-200' : 'text-indigo-600'}`}>Активен</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="lg:col-span-2 space-y-6">
