@@ -1,9 +1,16 @@
 {
   "compilerOptions": {
     "target": "ES2022",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": true,
     "module": "ESNext",
+    "types": ["vite/client", "react", "react-dom"],
     "lib": [
       "ES2022",
       "DOM",
@@ -15,7 +22,6 @@
     "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
-    "types": ["vite/client"],
     "paths": {
       "@/*": [
         "./*"
