@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { UserCircle, Mail, Shield, Save, X, Edit3, Type, GraduationCap } from 'lucide-react';
+import { UserCircle, Mail, Shield, Save, X, Edit3, Type, GraduationCap, Menu } from 'lucide-react';
 import { useAuth } from '../App';
 
 interface UserProfileData {
@@ -16,6 +16,7 @@ export default function ProfileView() {
   const { profile, user } = useAuth() as { profile: UserProfileData | null, user: any };
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showCard, setShowCard] = useState(false);
   const [formData, setFormData] = useState({
     full_name: profile?.full_name || '',
     class_name: profile?.class_name || '',
@@ -119,7 +120,16 @@ export default function ProfileView() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Profile Card */}
-        <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm flex flex-col items-center text-center">
+        <div className="lg:block">
+          <button 
+            onClick={() => setShowCard(!showCard)}
+            className="lg:hidden w-full mb-4 flex items-center justify-between bg-white p-5 rounded-3xl border border-slate-200 text-[10px] font-black uppercase tracking-widest text-slate-500"
+          >
+            <span className="flex items-center gap-3"><UserCircle className="w-5 h-5 text-indigo-400" /> Профиль</span>
+            {showCard ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </button>
+          
+          <div className={`${showCard ? 'flex' : 'hidden'} lg:flex bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm flex-col items-center text-center transition-all`}>
           <div className="w-32 h-32 bg-indigo-50 rounded-[2.5rem] flex items-center justify-center mb-6 shadow-inner border border-indigo-100">
             <UserCircle className="w-20 h-20 text-indigo-200" />
           </div>
@@ -156,6 +166,7 @@ export default function ProfileView() {
               <span className="text-[10px] font-mono truncate max-w-[150px]">ID: {user?.id}</span>
             </div>
           </div>
+        </div>
         </div>
 
         {/* Detailed Info */}
